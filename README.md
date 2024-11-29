@@ -34,7 +34,7 @@ west zephyr-export .
 
 ```
 
-## Compiling
+## Compiling with make
 
 Run the classic CMake + Makefile steps
 
@@ -47,6 +47,34 @@ make
 
 ```
 
+### Compiling with ninja and modifying banner
+
+In order to build the app with Ninja instead of build, and configuring the initial boot banner using KConfig interface, the following steps can be done (for the example, the native_posix_64 board will be used):
+
+``` bash
+west build -b native_posix_64
+
+mkdir build && cd build
+cmake -GNinja -DBOARD=native_posix_64 ..
+ninja
+```
+In order to change the banner message, it can be configured via KConfig. The menuconfig target can be built and run the following way:
+
+```bash
+west build -t menuconfig    ## build and run kconfig interface
+ninja menuconfig            ## run kconfig interface
+```
+The CONFIG_BOOT_BANNER_STRING constant can be found on the following menu path: (Top) → General Kernel Options → Kernel Debugging and Metrics
+
+After that, the app needs to be rebuilt. KConfig assures that not only the wanted variable is changed, but also its primitives.
+
+The app can be run as this on the host machine (if not cross compiling):
+
+```bash
+cd build/zephhyr
+./zephyr.elf
+
+```
 ## License
 
 Apache
