@@ -10,10 +10,10 @@
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
-void main(void)
+int main(void)
 {
     if (!device_is_ready(led.port)) {
-        return;
+        return 1;
     }
 
     gpio_pin_configure_dt(&led, GPIO_OUTPUT);
@@ -22,4 +22,6 @@ void main(void)
         gpio_pin_toggle_dt(&led);
         k_msleep(500);  // Blink every 500ms
     }
+
+    return 0;
 }
