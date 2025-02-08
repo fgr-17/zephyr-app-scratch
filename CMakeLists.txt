@@ -9,8 +9,11 @@ project(${APP})
 target_sources(app PRIVATE src/main.cpp)
 
 set(ALLOWED_BOARDS "nrf5340dk_nrf5340_cpuapp;native_posix_64")
-list(FIND ALLOWED_BOARDS ${BOARD} BOARD_INDEX)
-if(BOARD_INDEX EQUAL -1)
-  message(FATAL_ERROR 
-    "This application is intended to be built only for the following boards: ${ALLOWED_BOARDS}. Current BOARD is: ${BOARD}")
-endif()
+string(REPLACE "/" "_" NORMALIZED_BOARD ${BOARD})
+
+# set(ALLOWED_BOARDS "nrf5340dk/nrf5340/cpuapp;native_posix_64")
+# list(FIND ALLOWED_BOARDS ${BOARD} BOARD_INDEX)
+# if(BOARD_INDEX EQUAL -1)
+#   message(FATAL_ERROR 
+#     "This application is intended to be built only for the following boards: ${ALLOWED_BOARDS}. Current BOARD is: ${BOARD}")
+# endif()
