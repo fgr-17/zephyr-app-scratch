@@ -17,6 +17,8 @@ int main(void)
     printk("Zephyr from scratch example app - iomico zephyr course\n");
     printk("author: rouxfederico@gmail.com\n");
 
+    printk("Board: %s\n", CONFIG_BOARD);
+
     if (!device_is_ready(led.port)) {
         printk("device is not ready\n");
         return 1;
